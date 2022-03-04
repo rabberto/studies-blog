@@ -1,6 +1,7 @@
 ﻿using System;
 using BlogExample.Models;
 using BlogExample.Repositories;
+using BlogExample.Screens;
 using BlogExample.Services;
 using Microsoft.Data.SqlClient;
 
@@ -12,16 +13,17 @@ namespace BlogExample
 
         static void Main(string[] args)
         {
-            var connection = new SqlConnection(CONNECTION_STRING);
-            var userService = new UserService(connection);
-            var tagService = new TagService(connection);
-            var roleService = new RoleService(connection);
-            var postService = new PostService(connection);
+            Database.Connection = new SqlConnection(CONNECTION_STRING);
+            // var userService = new UserService(connection);
+            // var tagService = new TagService(connection);
+            // var roleService = new RoleService(connection);
+            // var postService = new PostService(connection);
 
 
-            connection.Open();
+            Database.Connection.Open();
+            MenuScreen.Load();
             // var items = userService.GetUserWithRoles();
-            var posts = postService.GetPostFull(new Post { });
+            // var posts = postService.GetPostFull(new Post { });
             // var item = postService.GetPost(1);
             // GetUser(1, connection);
             // CreateUser(connection);
@@ -29,16 +31,16 @@ namespace BlogExample
             // DeleteUser(connection);
             // var roles = roleService.GetRoles();
             // var tags = tagService.GetTags();
-            connection.Close();
+            Database.Connection.Close();
 
-            foreach (var post in posts)
-            {
-                Console.WriteLine($"Title: {post.Title}");
-                Console.WriteLine($" Category: {post.Category.Name}");
-                Console.WriteLine($" Author: {post.Author.Name}");
-                foreach (var tag in post.Tags)
-                    Console.WriteLine($"  - Tag: {tag.Name}");
-            }
+            // foreach (var post in posts)
+            // {
+            //     Console.WriteLine($"Title: {post.Title}");
+            //     Console.WriteLine($" Category: {post.Category.Name}");
+            //     Console.WriteLine($" Author: {post.Author.Name}");
+            //     foreach (var tag in post.Tags)
+            //         Console.WriteLine($"  - Tag: {tag.Name}");
+            // }
 
             // foreach (var role in roles)
             //     Console.WriteLine($"Role: {role.Name}");

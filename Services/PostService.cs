@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BlogExample.Models;
 using BlogExample.Repositories;
@@ -20,10 +21,16 @@ namespace BlogExample.Services
             => _repository.Get(id);
 
         public void CreatePost(Post post)
-            => _repository.Create(post);
+        {
+            post.CreateDate = DateTime.Now;
+            _repository.Create(post);
+        }
 
         public void UpdatePost(Post post)
-            => _repository.Update(post);
+        {
+            post.LastUpdateDate = DateTime.Now;
+            _repository.Update(post);
+        }
 
         public void DeletePost(Post post)
             => _repository.Delete(post);
