@@ -14,62 +14,28 @@ namespace BlogExample
         static void Main(string[] args)
         {
             Database.Connection = new SqlConnection(CONNECTION_STRING);
-            // var userService = new UserService(connection);
-            // var tagService = new TagService(connection);
-            // var roleService = new RoleService(connection);
-            // var postService = new PostService(connection);
-
-
             Database.Connection.Open();
+            // Debug();
             MenuScreen.Load();
-            // var items = userService.GetUserWithRoles();
-            // var posts = postService.GetPostFull(new Post { });
-            // var item = postService.GetPost(1);
-            // GetUser(1, connection);
-            // CreateUser(connection);
-            // UpdateUser(connection);
-            // DeleteUser(connection);
-            // var roles = roleService.GetRoles();
-            // var tags = tagService.GetTags();
             Database.Connection.Close();
+        }
 
-            // foreach (var post in posts)
-            // {
-            //     Console.WriteLine($"Title: {post.Title}");
-            //     Console.WriteLine($" Category: {post.Category.Name}");
-            //     Console.WriteLine($" Author: {post.Author.Name}");
-            //     foreach (var tag in post.Tags)
-            //         Console.WriteLine($"  - Tag: {tag.Name}");
-            // }
-
-            // foreach (var role in roles)
-            //     Console.WriteLine($"Role: {role.Name}");
-
-            // foreach (var tag in tags)
-            //     Console.WriteLine($"Usuário: {tag.Name}");
+        public static void Debug()
+        {
+            var postService = new PostService(Database.Connection);
+            var categoryService = new CategoryService(Database.Connection);
+            var userService = new UserService(Database.Connection);
+            postService.CreatePost(new Post
+            {
+                Title = "title",
+                Body = "body",
+                Summary = "summary",
+                Slug = "slug2",
+                CategoryId = 1,
+                // Category = categoryService.GetCategory(1),
+                AuthorId = 1,
+                // Author = userService.GetUser(1)
+            });
         }
     }
 }
-
-// var user = new User
-//             {
-//                 Name = "Graziela Tullio",
-//                 Email = "graziela.tullio@yahoo.com.br",
-//                 PasswordHash = "1234",
-//                 Bio = "Especialista Financeira",
-//                 Image = "image-url",
-//                 Slug = "graziela-tullio"
-//             };
-
-
-//             update
-//             var user = new User
-//             {
-//                 Id = 2,
-//                 Name = "Graziela Tullio Berto",
-//                 Email = "graziela.tullio@yahoo.com.br",
-//                 PasswordHash = "1234",
-//                 Bio = "Especialista Financeira",
-//                 Image = "image-url",
-//                 Slug = "graziela-tullio"
-//             };

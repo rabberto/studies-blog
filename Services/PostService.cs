@@ -23,6 +23,7 @@ namespace BlogExample.Services
         public void CreatePost(Post post)
         {
             post.CreateDate = DateTime.Now;
+            post.LastUpdateDate = DateTime.Now;
             _repository.Create(post);
         }
 

@@ -37,29 +37,29 @@ namespace BlogExample.Repositories
 
             var posts = new List<Post>();
 
-            var items = _connection.Query<Post, Category, User, Tag, Post>(
-                query,
-                (queryPost, category, user, tag) =>
-                {
-                    queryPost.Category = category;
-                    queryPost.Author = user;
+            // var items = _connection.Query<Post, Category, User, Tag, Post>(
+            //     query,
+            //     (queryPost, category, user, tag) =>
+            //     {
+            //         queryPost.Category = category;
+            //         queryPost.Author = user;
 
-                    var consultPost = posts.FirstOrDefault(x => x.Id == queryPost.Id);
-                    if (consultPost == null)
-                    {
-                        consultPost = queryPost;
-                        if (tag != null)
-                            consultPost.Tags.Add(tag);
+            //         var consultPost = posts.FirstOrDefault(x => x.Id == queryPost.Id);
+            //         if (consultPost == null)
+            //         {
+            //             consultPost = queryPost;
+            //             if (tag != null)
+            //                 consultPost.Tags.Add(tag);
 
-                        posts.Add(consultPost);
-                    }
-                    else
-                        consultPost.Tags.Add(tag);
-                    return queryPost;
-                }, new
-                {
-                    post.Id
-                }, splitOn: "IdCategory, IdUser, IdTag");
+            //             posts.Add(consultPost);
+            //         }
+            //         else
+            //             consultPost.Tags.Add(tag);
+            //         return queryPost;
+            //     }, new
+            //     {
+            //         post.Id
+            //     }, splitOn: "IdCategory, IdUser, IdTag");
             return posts;
         }
     }
